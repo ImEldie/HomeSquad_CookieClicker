@@ -62,6 +62,8 @@ button {
     background-image: url("IMG/Background.jpeg");
     width: 80%;
     height: 100%;
+    display: flex;
+    justify-content: center;
 }
 #upgrade-screen{
     position: fixed;
@@ -76,6 +78,7 @@ button {
     height: 256px;
     background-color: transparent;
     border-color: transparent;
+    padding: 0%;
 }
 
 #cookie-button img {
