@@ -1,4 +1,3 @@
 # HomeSquad_CookieClicker
-Cookie Clicker group-exercise
 
-test
+Cookie Clicker group-exercise
