@@ -1,24 +1,55 @@
 body{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Helvetica;
 }
-
+button {
+    /* 
+    Changing the cursor to a pointer automatically when on top of a button.
+    */
+	cursor: pointer;
+}
 #header{
-    background-image: linear-gradient(grey, black);
+    background-image: linear-gradient(rgb(0,0,200), rgb(0,0,120));
     width: 100%;
-    height: 50px;
-    margin-bottom: 10px;
+    height: 3rem;
+
+    font-size: 1.5rem;
+    color: white;
 
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;   
+    justify-content: space-between;
+    align-items: center;
+    border-width: 1rem;
+}
+
+#header-title{
+    position: fixed;
+    left: 1rem;
+}
+
+#header-button-collection{
+    position: fixed;
+    right: 1rem;
+}
+
+.header-button{
+    width: 7rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    border-width: 0;
+    background-image: linear-gradient(white,rgb(0,100,200));
+    font-weight: bold;
+}
+
+.header-button:hover{
+    background-image: linear-gradient(white, white);
 }
 
 #content{
-    top: 50px;
+    top: 3rem;
     left: 0;
     right: 0;
     background-image: linear-gradient(white, rgb(254,255,254));
