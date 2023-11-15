@@ -28,7 +28,7 @@ body{
 
 #cookie-screen{
     position: fixed;
-    background-color: lightgreen; /* To be changed later */
+    background-image: url("IMG/Background.jpeg");
     width: 80%;
     height: 100%;
 }
@@ -39,3 +39,29 @@ body{
     height: 100%;
     background-color: pink; /* To be changed later */
 }
+
+#cookie-button{
+    width: 256px;
+    height: 256px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+#cookie-button img {
+    width: 256px;
+    height: 256px;
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
+}
+
+#cookie-button img:hover{
+    width: 266px;
+    height: 266px;
+    transform: scale(1.01);
+}
+
+#cookie-button img:active{
+    transform: scale(0.90);
+}
+
