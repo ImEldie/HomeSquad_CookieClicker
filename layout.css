@@ -110,7 +110,7 @@ div{
 #upgrade-screen{
     position: fixed;
     right: 0;
-    width: 20%;
+    width: 30rem;
     height: 100%;
     background-color: pink; /* To be changed later */
 }
@@ -154,6 +154,14 @@ div{
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.building-number-div{
+    /* div that holds the amount and price variable */
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .building-price-green{
