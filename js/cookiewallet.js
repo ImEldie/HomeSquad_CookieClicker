@@ -5,7 +5,7 @@ const cookiesPerSecond = document.getElementById("cookies-per-second");
 // Functions
 function cookiesPerSecondUpdate(intervalTime) { // Supply intervalTime in ms, adds cookies per second to cookietotal.
     
-    // Code breaks if cookiesPerSecond is lower than 0.1, due to rounding issues.
+    // Code breaks if cookiesPerSecond is lower than 0.01, due to rounding issues.
     if (intervalTime < 55) {    // intervalTime protection, if intervalTime is too low, set to functional minimum
         console.log("intervalTime for cookiesPerSecondUpdate() too low! is:", intervalTime , "ms, now set to 550ms.")
         intervalTime = 55;
@@ -18,7 +18,7 @@ function cookiesPerSecondUpdate(intervalTime) { // Supply intervalTime in ms, ad
         */
         // Count cookieTotal + Cookies per second, cookiesPerSecond will always update correctly, even if we decide to update every 200ms
         const newCookieTotal = parseFloat(cookieTotal.innerHTML) + (parseFloat(cookiesPerSecond.innerHTML) * (intervalTime / 1000));
-        cookieTotal.innerHTML = newCookieTotal.toFixed(2); // Rounds the number to 1 decimal.
+        cookieTotal.innerHTML = newCookieTotal.toFixed(2); // Rounds the number to 2 decimals, CHANGING TO 2 DECIMALS MAY BREAK THE CODE WITH LOW CPS COUNT!!!
     }, intervalTime);
 }
 
