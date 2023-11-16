@@ -114,3 +114,56 @@ div{
     height: 100%;
     background-color: pink; /* To be changed later */
 }
+
+.split-bar{
+    background-color: brown;
+    width: 100%;
+    height: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.building-button-open {
+    width: 100%;
+    height: 4rem;
+
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    gap: 1rem;
+
+    background-image: linear-gradient(rgb(255,100,0),brown);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.building-button-closed {
+    width: 100%;
+    height: 4rem;
+
+    color: gray;
+    font-weight: bold;
+    font-size: 1.2rem;
+    gap: 1rem;
+    cursor: not-allowed;
+
+    background-image: linear-gradient(brown,black);
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.building-price-green{
+    color: rgb(0, 255, 0);
+}
+
+.building-price-red{
+    color: rgb(255, 0, 0);
+}
+
+.building-amount{
+    font-size: 2rem;
+}
