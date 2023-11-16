@@ -62,8 +62,8 @@ button {
     background-image: url("IMG/Background.jpeg");
     width: 80%;
     height: 100%;
-    display: flex;
-    justify-content: center;
+    display: block;
+    text-align: center;
 }
 #upgrade-screen{
     position: fixed;
@@ -73,7 +73,8 @@ button {
     background-color: pink; /* To be changed later */
 }
 
-#cookie-button{
+/*Cookie button*/
+#cookie-button button{
     width: 256px;
     height: 256px;
     background-color: transparent;
@@ -81,7 +82,7 @@ button {
     padding: 0%;
 }
 
-#cookie-button img {
+#cookie-button button img {
     width: 256px;
     height: 256px;
     transition-property: all;
@@ -99,3 +100,28 @@ button {
     transform: scale(0.90);
 }
 
+/*Milk Animation*/
+.milk-loop{
+    text-align: left;
+    font-size: 0;
+}
+
+.mover{
+    width: max-content;
+    position: fixed;
+    bottom: 0;
+    left: -800px;
+    animation: moveMilk 8s linear infinite;
+}
+
+.mover img {
+    width: 800px;
+    height: 30vh;
+    opacity: 85%;
+}
+
+@keyframes moveMilk {
+    100% {
+        transform: translateX(800px);
+    }
+}
