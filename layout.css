@@ -7,6 +7,12 @@ button {
     */
 	cursor: pointer;
 }
+div{
+    /*
+    When hovering over text the cursor changed, to make it look nicer we change the cursor to default.
+    */
+    cursor: default;
+}
 #header{
     background-image: linear-gradient(rgb(0,0,200), rgb(0,0,120));
     width: 100%;
@@ -60,15 +66,53 @@ button {
 #cookie-screen{
     position: fixed;
     background-image: url("IMG/Background.jpeg");
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 80%;
     height: 100%;
     display: block;
     text-align: center;
 }
+
+#cookie-wallet{
+    background-image: radial-gradient(rgb(255,100,0),brown);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 30rem;
+    border-radius: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#wallet-text-total{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: -0.5rem;
+}
+
+#cookie-total{
+    font-size: 3.5rem;
+    color: white;
+}
+
+#wallet-text-cookies-per-second{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: -0.5rem;
+}
+
+#cookies-per-second{
+    font-size: 3rem;
+    color: white;
+}
+
 #upgrade-screen{
     position: fixed;
     right: 0;
-    width: 20%;
+    width: 30rem;
     height: 100%;
     background-color: pink; /* To be changed later */
 }
@@ -124,4 +168,65 @@ button {
     100% {
         transform: translateX(800px);
     }
+}
+
+.split-bar{
+    background-color: brown;
+    width: 100%;
+    height: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.building-button-open {
+    width: 100%;
+    height: 4rem;
+
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    gap: 1rem;
+
+    background-image: linear-gradient(rgb(255,100,0),brown);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.building-button-closed {
+    width: 100%;
+    height: 4rem;
+
+    color: gray;
+    font-weight: bold;
+    font-size: 1.2rem;
+    gap: 1rem;
+    cursor: not-allowed;
+
+    background-image: linear-gradient(brown,black);
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.building-number-div{
+    /* div that holds the amount and price variable */
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.building-price-green{
+    color: rgb(0, 255, 0);
+}
+
+.building-price-red{
+    color: rgb(255, 0, 0);
+}
+
+.building-amount{
+    font-size: 2rem;
 }

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./layout.css" />
     <title>HomeSquad Cookie Clicker</title>
+
+    <script type="module" src="./js/index.js"></script>
+    <script type="" src="./js/cookiebuttonclick.js"></script>
   </head>
   <body>
     <!--  HEADER  -->
@@ -23,8 +26,14 @@
     <!--  CONTENT  -->
     <div id="content">
       <div id="cookie-screen">
+        <div id="cookie-wallet">
+          <div id="wallet-text-total">Cookies</div>
+          <div id="cookie-total">0</div>
+          <div id="wallet-text-cookies-per-second">Cookies/Second</div>
+          <div id="cookies-per-second">0</div>
+        </div>
         <div id="cookie-button">
-          <button>
+          <button id="test" onclick="cookieButtonClick()">
             <img src="IMG/Cookie.png" alt="" />
           </button>
         </div>
@@ -36,8 +45,34 @@
             <img src="IMG/NormalMilk.png" alt="" />
           </div>
         </div>
+        <div id="upgrade-screen">
+          <div>UPGRADES GO HERE</div>
+          <div class="split-bar"></div>
+          <div id="building-shop">
+            SHOP
+            <!--  Building buttons will be generated here by javascript  -->
+            <!--  Example code here:  -->
+            <!--
+                <button class="building-button-open" id="building0">
+                    <div class="building-image" id="building0-image">img</div>
+                    <div class="building-name" id="building0-name">Cursor</div>
+                    <div class="">
+                        <div class="building-amount" id="building0-amount">0</div>
+                        <div class="building-price-green" id="building0-price">10</div>    
+                    </div>
+                </button>
+                <button class="building-button-closed" id="building1">
+                    <div class="building-image" id="building1-image">img</div>
+                    <div class="building-name" id="building1-name">Grandma</div>
+                    <div>
+                        <div class="building-amount" id="building1-amount">0</div>
+                        <div class="building-price-red" id="building1-price">10</div>    
+                    </div>
+                </button>
+                -->
+          </div>
+        </div>
       </div>
-      <div id="upgrade-screen">UPGRADES</div>
     </div>
   </body>
 </html>
