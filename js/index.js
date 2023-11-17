@@ -12,11 +12,13 @@ class building {
     amount;
     enoughCookiesToBuy;
     unlocked;
+    imageYCoordinate;
 
     htmlElementButton;
     htmlElementName;
     htmlElementAmount;
     htmlElementPrice;
+    htmlElementImage;
     htmlElementTooltip;
 
     constructor(initId, initName, initBasePrice, initCookiesPerSecond){
@@ -35,6 +37,7 @@ class building {
         this.htmlElementName = document.getElementById("building" + this.id + "-name");
         this.htmlElementAmount = document.getElementById("building" + this.id + "-amount");
         this.htmlElementPrice = document.getElementById("building" + this.id + "-price");
+        this.htmlElementImage = document.getElementById("building" + this.id + "-image");
         this.htmlElementTooltip = document.getElementById("building" + this.id + "-tooltip");
 
         // Add event listener, to run the "buy" command when button is clicked.
@@ -53,9 +56,26 @@ class building {
         button.id = idName;
 
         // Create the first div element for building-image
-        const imageDiv = document.createElement("div");
+        const imageDiv = document.createElement("img");
         imageDiv.className = "building-image";
         imageDiv.id = idName + "-image";
+        imageDiv.alt= "img-" + this.name;
+        imageDiv.src = "https://orteil.dashnet.org/cookieclicker/img/buildings.png";
+        
+        // Set the positioning for the 
+        if (this.id < 2){ 
+            this.imageYCoordinate = -(this.id * 64);
+        } else { // Shift the position by 1, since row 3 consists of angry grandmas
+            this.imageYCoordinate = -((this.id + 1) * 64);
+        }
+
+        this.imageYCoordinate = this.imageYCoordinate + "px"; // Add px to the end, since the coord value is in Pixels.
+
+        console.log("Generating image for:", this.name + "-button with y-coord", this.imageYCoordinate);
+        // -64px => Black image
+        imageDiv.style.objectPosition = '-64px' + ' ' + this.imageYCoordinate;
+    
+
         imageDiv.appendChild(document.createTextNode("img")); // Assuming you want to display "img" text
 
         // Create the second div element for building-name
@@ -112,6 +132,12 @@ class building {
             // Update Price colour based on condition
         this.htmlElementPrice.classList.remove('building-price-green', 'building-price-red');
         this.htmlElementPrice.classList.add(this.enoughCookiesToBuy ? 'building-price-green' : 'building-price-red');
+            
+            // Update image opacity based on condition
+        if (this.unlocked) {
+            this.htmlElementImage.classList.remove('building-image', 'building-image-hidden');
+            this.htmlElementImage.classList.add(this.enoughCookiesToBuy ? 'building-image' : 'building-image-hidden');
+        }
 
         // ### Update Amount ###
         this.htmlElementAmount.innerHTML = this.amount;
@@ -124,7 +150,8 @@ class building {
             const idName = "building" + this.id;
             const tooltipDiv = document.getElementById(idName + "-tooltip")
             tooltipDiv.classList = "tooltip";
-
+            // Set image x-coordinate to the visible version
+            this.htmlElementImage.style.objectPosition = '0px' + ' ' + this.imageYCoordinate;
         }
 
         if (this.unlocked) {
@@ -194,7 +221,7 @@ let buildings = [
     new building(0,"Cursor",10,0.1),
     new building(1,"Granny",115,1),
     new building(2,"Farm",1100,8),
-    new building(3,"Factory",4200,32)
+    new building(3,"Mine",4200,32)
 ]
 
 // ### FUNCTIONS ###
