@@ -135,6 +135,7 @@ class building {
     buy() { // Purchase an instance of this building type
         if (this._evaluateIfPurchaseable()){
             cookieTotal = cookieTotal - this.currentPrice;
+            sessionStorage.setItem("CookieTotal", cookieTotal);
             this.amount++;
 
             this._calculateCurrentPrice();
@@ -156,7 +157,9 @@ let cookiesPerSecondBonus = 0; // Percentual bonus to cookies per second (0 = 10
 const buildingPriceIncreasePerPurchase = 5; // Percentage that a building's price increases with upon purchase
 
 let cookieTotal = 1000;
+sessionStorage.setItem("CookieTotal", cookieTotal);
 let cookiesPerSecond = 0; // To be written by amount of buildings later
+let cookiesPerClick = 1;
 
 let buildings = [
     new building(0,"Clicker",10,0.1),
@@ -206,12 +209,14 @@ function cookiesPerSecondWalletUpdate(intervalTime) { // Supply intervalTime in 
     setInterval(() => {
         // ### CALCULATE COOKIES PER SECOND ###
         _calculateGlobalCookiesPerSecond();
-
+        cookieTotal = parseFloat(sessionStorage.getItem('CookieTotal'));
+      
         // ### ADD COOKIES PER SECOND TO COOKIE TOTAL ###
         // Count cookieTotal + Cookies per second, cookiesPerSecond will always update correctly, even if we decide to update every 200ms
         // Also adds the percentual CPS bonus
         let cookiesPerSecondEffectiveBoost = ((100 + cookiesPerSecondBonus)/100);
         cookieTotal = cookieTotal + (cookiesPerSecond * (intervalTime / 1000) * cookiesPerSecondEffectiveBoost);
+        sessionStorage.setItem("CookieTotal", cookieTotal);
 
         // ### UPDATE HTML VALUES ###
         // Cookies total update

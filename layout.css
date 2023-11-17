@@ -65,14 +65,50 @@ div{
 
 #cookie-screen{
     position: fixed;
+    background-image: url("IMG/Background.jpeg");
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: lightgreen; /* To be changed later */
     width: 80%;
     height: 100%;
+    display: block;
+    text-align: center;
 }
+
+#cookie-wallet{
+    background-image: radial-gradient(rgb(255,100,0),brown);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 30rem;
+    border-radius: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#wallet-text-total{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: -0.5rem;
+}
+
+#cookie-total{
+    font-size: 3.5rem;
+    color: white;
+}
+
+#wallet-text-cookies-per-second{
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: -0.5rem;
+}
+
+#cookies-per-second{
+    font-size: 3rem;
+    color: white;
+}
+
 
 #cookie-wallet{
     background-image: radial-gradient(rgb(255,100,0),brown);
@@ -113,6 +149,59 @@ div{
     width: 30rem;
     height: 100%;
     background-color: pink; /* To be changed later */
+}
+
+/*Cookie button*/
+#cookie-button button{
+    width: 256px;
+    height: 256px;
+    background-color: transparent;
+    border-color: transparent;
+    padding: 0%;
+}
+
+#cookie-button button img {
+    width: 256px;
+    height: 256px;
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+#cookie-button img:hover{
+    width: 266px;
+    height: 266px;
+    transform: scale(1.01);
+}
+
+#cookie-button img:active{
+    transform: scale(0.90);
+}
+
+/*Milk Animation*/
+.milk-loop{
+    text-align: left;
+    font-size: 0;
+}
+
+.mover{
+    width: max-content;
+    position: fixed;
+    bottom: 0;
+    left: -800px;
+    animation: moveMilk 8s linear infinite;
+}
+
+.mover img {
+    width: 800px;
+    height: 30vh;
+    opacity: 85%;
+}
+
+@keyframes moveMilk {
+    100% {
+        transform: translateX(800px);
+    }
 }
 
 .split-bar{
