@@ -209,16 +209,13 @@ function cookiesPerSecondWalletUpdate(intervalTime) { // Supply intervalTime in 
     setInterval(() => {
         // ### CALCULATE COOKIES PER SECOND ###
         _calculateGlobalCookiesPerSecond();
- 
-
         cookieTotal = parseFloat(sessionStorage.getItem('CookieTotal'));
-     
+      
         // ### ADD COOKIES PER SECOND TO COOKIE TOTAL ###
         // Count cookieTotal + Cookies per second, cookiesPerSecond will always update correctly, even if we decide to update every 200ms
         // Also adds the percentual CPS bonus
         let cookiesPerSecondEffectiveBoost = ((100 + cookiesPerSecondBonus)/100);
         cookieTotal = cookieTotal + (cookiesPerSecond * (intervalTime / 1000) * cookiesPerSecondEffectiveBoost);
-       
         sessionStorage.setItem("CookieTotal", cookieTotal);
 
         // ### UPDATE HTML VALUES ###
@@ -234,8 +231,6 @@ function periodicStoreRender(intervalTime){ // Supply intervaltime, forces all b
         }
     }, intervalTime);
 }
-
-
 
 // ### RUNTIME ###
 cookiesPerSecondWalletUpdate(100);
