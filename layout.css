@@ -70,7 +70,7 @@ div{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80%;
+    width: 70%;
     height: 100%;
     display: block;
     text-align: center;
@@ -203,7 +203,7 @@ div{
     position: fixed;
     right: 0;
     top: 3rem;
-    width: 30rem;
+    width: 30%;
     height: 100%;
     background-image: url("https://orteil.dashnet.org/cookieclicker/img/bgChocoDark.jpg");
 }
