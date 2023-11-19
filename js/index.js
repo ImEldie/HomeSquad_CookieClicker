@@ -311,6 +311,43 @@ function renderWebsite(intervalTime) { // Supply intervalTime in ms, adds cookie
         }
     }, intervalTime);
 }
+function generateHeaderButtonEventListeners(name){ // supply header button name, will set up event listeners for every button, MAKE SURE ELEMENT ID'S ARE CORRECTLY NAMED!!
+    /*
+    All HTML elements must be named correctly!
+    It must use the following formats (where 'name' is string we supply to the function)
+    Button in the header must have Id: header-button-'name'
+    popup id must be: popup-'name'
+    close button must be: close-popup-'name'
+    */
 
+    // Get elements from html
+    const htmlElementHeaderButton = document.getElementById("header-button-" + name);
+    const htmlElementPopup = document.getElementById("popup-" + name);
+    const htmlElementPopupClose = document.getElementById("close-popup-" + name);
+
+    // Connect event listeners to buttons
+    // Header button
+    htmlElementHeaderButton.addEventListener('click', () => {
+        if (htmlElementPopup.className == "header-popup-hidden"){
+            htmlElementPopup.classList = "header-popup-visible";
+        } else {
+            htmlElementPopup.classList = "header-popup-hidden";
+        }
+    });
+    // Close button
+    htmlElementPopupClose.addEventListener('click', () => {
+            htmlElementPopup.classList = "header-popup-hidden";
+    });
+
+}
 // ### RUNTIME ###
+// Initialise headerbutton functions
+    // # Open & close Options
+    generateHeaderButtonEventListeners("options");
+    // # Open & close Info
+    generateHeaderButtonEventListeners("info");
+    // # Open & close Stats
+    generateHeaderButtonEventListeners("stats");
+
+// Render website values, such as the wallet & shops
 renderWebsite(100);

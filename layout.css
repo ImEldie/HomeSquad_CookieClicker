@@ -32,13 +32,11 @@ div{
 }
 
 #header-title{
-    position: fixed;
-    left: 1rem;
+    margin-left: 1rem;
 }
 
 #header-button-collection{
-    position: fixed;
-    right: 1rem;
+    margin-right: 1rem;
 }
 
 .header-button{
@@ -217,7 +215,16 @@ div{
 }
 
 /* # BUILDINGS # */
-.shop-title-text {
+.header-popup-hidden, .header-popup-visible{
+    display: block;
+    /* If layout changes to header-popup are needed, make them here */
+}
+
+.header-popup-hidden{
+    display: none;
+}
+
+.shop-title-text, .header-popup-title{
     font-weight: bold;
     color: white;
     height: 2rem;
@@ -226,6 +233,44 @@ div{
     justify-content: center;
     align-items: center;
 }
+
+.header-popup-title{
+    justify-content: space-between;
+    padding-left: 0.5rem;
+}
+
+.close-popup{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20%;
+    border-style: solid;
+    border-color: white;
+    color: white;
+    background-image: url("https://orteil.dashnet.org/cookieclicker/img/darkNoise.png");
+}
+
+.header-popup-content{
+    display: flex;
+    padding: 1rem;
+    color: black;
+    background-image: url("https://orteil.dashnet.org/cookieclicker/img/bgChoco.jpg");
+}
+
+.header-popup-text-container{
+    display: block;
+
+    padding: 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    background-color: white;
+}
+
+/* BUILDING STORE */
+
 
 .building-button-open {
     width: 100%;
