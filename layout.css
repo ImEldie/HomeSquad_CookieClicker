@@ -37,6 +37,7 @@ div{
 
 #header-button-collection{
     margin-right: 1rem;
+    display: flex;
 }
 
 .header-button{
@@ -46,6 +47,9 @@ div{
     border-width: 0;
     background-image: linear-gradient(white,rgb(0,100,200));
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header-button:hover{
