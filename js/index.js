@@ -1,4 +1,5 @@
 // ### CLASSES ###
+
 class building {
     name;
     id;
@@ -147,7 +148,129 @@ class building {
         this._renderHtml();
     }
 }
+class upgrade {
+    name;
+    id;
+    startPrice;
+    currentPrice;
 
+    amount;
+    enoughCookiesToBuy;
+    requiredBuildingId;
+    unlocked;
+
+    htmlElementUpgradeButton;
+    htmlElementUpgradeName;
+    htmlElementUpgradeAmount;
+    htmlElementUpgradePrice;
+
+    constructor(initId, initName, initBasePrice,initCookiesPerSecond, requiredBuildingId, efficiencyBoost){
+        this.name = initName;
+        this.id = initId;
+        this.currentPrice = initBasePrice;
+        this.amount = 0;
+        this.unlocked = false;
+        this.requiredBuildingId = requiredBuildingId;
+        this.cookiesPerSecond = initCookiesPerSecond;
+        this.efficiencyBoost = efficiencyBoost;
+
+        this._generateHtmlButton();
+        this.htmlElementUpgradeButton = document.getElementById("upgrade" + this.id);
+        this.htmlElementUpgradeName = document.getElementById("upgrade" + this.id + "-name");
+        this.htmlElementUpgradeAmount = document.getElementById("upgrade" + this.id + "-amount");
+        this.htmlElementUpgradePrice = document.getElementById("upgrade" + this.id + "-price");
+
+        this.htmlElementUpgradeButton.addEventListener('click', () => {
+            this.buy();
+    });
+
+    this.updateInstance();
+  }
+  _generateHtmlButton(){ 
+    let idName = "upgrade" + this.id;
+    const button = document.createElement("button");
+    button.className = "upgrade-button-open";
+    button.id = idName;
+
+    const imageDiv = document.createElement("div");
+        imageDiv.className = "upgrade-image";
+        imageDiv.id = idName + "-image";
+        imageDiv.appendChild(document.createTextNode("img"));
+
+    const nameDiv = document.createElement("div");
+        nameDiv.className = "upgrade-name";
+        nameDiv.id = idName + "-name";
+        nameDiv.appendChild(document.createTextNode(this.name));
+        
+    const amountPriceDiv = document.createElement("div");
+        amountPriceDiv.className = "upgrade-number-div";
+        
+    const amountDiv = document.createElement("div");
+        amountDiv.className = "upgrade-amount";
+        amountDiv.id = idName + "-amount";
+        amountDiv.appendChild(document.createTextNode(this.amount));
+        
+    const priceDiv = document.createElement("div");
+        priceDiv.className = "upgrade-price-green";
+        priceDiv.id = idName + "-price";
+        priceDiv.appendChild(document.createTextNode(this.currentPrice));
+
+        amountPriceDiv.appendChild(amountDiv);
+        amountPriceDiv.appendChild(priceDiv);
+
+        button.appendChild(imageDiv);
+        button.appendChild(nameDiv);
+        button.appendChild(amountPriceDiv);
+
+    const upgradeShopDiv = document.getElementById("upgrade-buttons");
+          upgradeShopDiv.appendChild(button);
+  }
+  _renderHtml(){
+    _visualiseHtmlNumber(this.htmlElementUpgradePrice,this.currentPrice);
+
+    this.htmlElementUpgradeButton.classList.remove('upgrade-button-open', 'upgrade-button-closed');
+    this.htmlElementUpgradeButton.classList.add(this.enoughCookiesToBuy ? 'upgrade-button-open' : 'upgrade-button-closed');
+
+    this.htmlElementUpgradePrice.classList.remove('upgrade-price-green', 'upgrade-price-red');
+    this.htmlElementUpgradePrice.classList.add(this.enoughCookiesToBuy ? 'upgrade-price-green' : 'upgrade-price-red');
+
+    this.htmlElementUpgradeAmount.innerHTML = this.amount;
+
+    if (cookieTotal >= (this.currentPrice * 0.75) && this.unlocked == false){
+
+        this.unlocked = true;
+    }
+
+    if ( this.amount > 0 ){
+        this.htmlElementUpgradeButton.style.display = 'none';
+    } else if (this.unlocked) {
+        this.htmlElementUpgradeButton.style.display = 'block';
+    } else {
+        this.htmlElementUpgradeButton.style.display = 'none';
+    }
+  }
+
+    _evaluateIfPurchaseable(){ 
+    this.enoughCookiesToBuy = (this.currentPrice <= cookieTotal && buildings[this.requiredBuildingId].amount > 0);
+
+    return this.enoughCookiesToBuy;
+    }
+
+    buy() { 
+        if (this._evaluateIfPurchaseable()){
+            cookieTotal = cookieTotal - this.currentPrice;
+            this.amount++;
+        }
+        const building = buildings[this.requiredBuildingId];
+        building.cookiesPerSecond *= this.efficiencyBoost;
+
+        this.updateInstance();
+    }
+    updateInstance(){   
+        this._evaluateIfPurchaseable();
+        this._renderHtml();
+    }
+}
 // ### VARIABLES ###
 const cookieTotalText = document.getElementById("cookie-total");
 const cookiesPerSecondText = document.getElementById("cookies-per-second");
@@ -163,6 +286,13 @@ let buildings = [
     new building(1,"Granny",115,1),
     new building(2,"Farm",1100,8),
     new building(3,"Test",5500,16)
+]
+
+let upgrades = [
+    new upgrade(0, "Plastic-mouse",200,0.5,0,1.5),
+    new upgrade(1, "Metal-mouse",300,2.5,1,2),
+    new upgrade(2, "Golden-mouse",400,5,2,2.5),
+    new upgrade(3, "Platinum-mouse",500,50,3,3)
 ]
 
 // ### FUNCTIONS ###
@@ -225,6 +355,29 @@ function periodicStoreRender(intervalTime){ // Supply intervaltime, forces all b
             buildings[i].updateInstance();
         }
     }, intervalTime);
+    
+    setInterval(() => {
+        for (let i = 0; i < buildings.length; i++) {
+            buildings[i].updateInstance();
+        }
+        if(buildings[0].amount >= 3){
+            upgrades[0].unlocked = true;
+            upgrades[0].updateInstance();
+        }
+        if (buildings[1].amount >= 3) {
+            upgrades[1].unlocked = true;
+            upgrades[1].updateInstance();
+        }
+
+        if (buildings[2].amount >= 3) {
+            upgrades[2].unlocked = true;
+            upgrades[2].updateInstance();
+        }
+        if (buildings[3].amount >= 3) {
+            upgrades[3].unlocked = true;
+            upgrades[3].updateInstance();
+        }
+    }, intervalTime)
 }
 
 // ### RUNTIME ###
