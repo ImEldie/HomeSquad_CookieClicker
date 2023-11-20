@@ -37,6 +37,7 @@ div{
 
 #header-button-collection{
     margin-right: 1rem;
+    display: flex;
 }
 
 .header-button{
