@@ -17,11 +17,10 @@
       </div>
       <div id="header-button-collection">
         <!--  TODO: FUNCTIONALITY OF THE BUTTONS  -->
-        <button class="header-button" id="header-button-options">
-          OPTIONS
-        </button>
+        <!-- OPTIONS & STATS BUTTON IS HIDDEN BY style="display: none", remove this if you implement the feature-->
+        <button style="display: none" class="header-button" id="header-button-options">OPTIONS</button>
         <button class="header-button" id="header-button-info">INFO</button>
-        <button class="header-button" id="header-button-stats">STATS</button>
+        <button style="display: none" class="header-button" id="header-button-stats">STATS</button>
       </div>
     </div>
     <!--  CONTENT  -->
@@ -87,7 +86,24 @@
               <button class="close-popup" id="close-popup-stats">X</button>
             </div>
             <div class="header-popup-content">
-              <div class="header-popup-text-container">W.I.P.</div>
+              <div class="header-popup-text-container" id="text-container-stats">
+                <div class="stat-title">
+                  Cookies gathered
+                  <div class="stat" id="stat-total">
+                    Cookies in bank:
+                    <div id="stat-total-cookies-value">0</div>
+                  </div>
+                </div>
+                <div class="stat-title" id="stats-cps">
+                  CpS statistics:
+                  <div class="stat" id="stat-cps-total">
+                    Total CpS:
+                    <div id="stat-total-value">0</div>
+                  </div>
+                </div>
+
+
+              </div>
             </div>
           </div>
           <div class="shop-title-text">UPGRADES-STORE</div>

@@ -272,6 +272,14 @@ div{
     background-color: white;
 }
 
+.stat{
+    display: flex;
+    font-weight: normal;
+}
+.stat-title{
+    font-weight: bold;
+}
+
 /* BUILDING STORE */
 
 
