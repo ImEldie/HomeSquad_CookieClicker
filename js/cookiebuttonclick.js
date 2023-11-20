@@ -11,15 +11,15 @@ function cookieButtonClick(){
 //Function for all particles
 function cookieButtonParticle(event){
     //Create new cookiePerClickParticle
-    const newcpcParticle = new cookieButtonParticle();
-    newcpcParticle._generateHtmlText(event);
+    //const newcpcParticle = new cookieButtonParticle();
+    //newcpcParticle._generateHtmlText(event);
     //Create new cookie particle
     const newParticle = new cookieParticle();
     newParticle._generateHtmlImg(event);
 }
 
 //WERKT NIET Shows cookies per click
-class cookiePerClickParticle{
+/*class cookiePerClickParticle{
     constructor(){
         // Generate a unique ID for every particle
         this.id = "cookiePerClickParticle" + new Date().getTime();
@@ -64,7 +64,7 @@ class cookiePerClickParticle{
             }
         }, 30); //Up speed
     }
-}
+}*/
 
 //Small cookie animation on click
 //cookieParticle Class
