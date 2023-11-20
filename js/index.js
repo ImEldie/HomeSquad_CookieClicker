@@ -339,11 +339,40 @@ function generateHeaderButtonEventListeners(name){ // supply header button name,
             htmlElementPopup.classList = "header-popup-hidden";
     })
 }
+/* Not functional
 function updateStats(intervalTime){
+    // ### Initial generation for building CPS statistics ###
+    for(let i = 0; i < buildings.length; i++) {
+        const newStatText = document.createElement("div");
+        newStatText.className = "stat";
+        newStatText.id = "stat-" + buildings[i].id;
+        newStatText.innerHTML = buildings[i].name + "CpS: "
+
+        const newStatValue = document.createElement("div");
+        newStatValue.id = "stat-" + buildings[i].id + "-value";
+        newStatValue.innerHTML = buildings[i].calculateCookiesPerSecond();
+
+        newStatText.appendChild(document.createTextNode(buildings[i].name))
+
+        // Append the button & tooltip to the body (or any other container)
+        const cpsStatsDiv = document.getElementById("stats-cps");
+        cpsStatsDiv.appendChild(newStatText);
+        cpsStatsDiv.appendChild(newStatValue);
+    }
+
+    // ### Timed update ###
     setInterval(() => {
-        
+        // Update amount in bank
+        const htmlTotalCookeisValue = document.getElementById("stat-total")
+        // Update building CPS info
+        for(let i = 0; i < buildings.length; i++){
+            const htmlStatValue = document.getElementById("stat-" + buildings[i].id + "-value")
+            htmlStatValue.innerText = toString(buildings[i].calculateCookiesPerSecond());
+        }
     }, intervalTime);
 }
+*/
+
 // ### RUNTIME ###
 // Initialise headerbutton functions
     // # Open & close Options
@@ -355,4 +384,4 @@ function updateStats(intervalTime){
 
 // Render website values, such as the wallet & shops
 renderWebsite(100);
-updateStats(5000);
+//updateStats(5000); // Not functional
