@@ -33,10 +33,18 @@
           <div id="cookies-per-second">0</div>
         </div>
         <div id="cookie-button">
-          <button id="test" onclick="cookieButtonClick()">
-            <img src="IMG/Cookie.png" alt="" />
+          <button
+            id="button"
+            onclick="cookieButtonClick();cookieButtonParticle();"
+          >
+            <img draggable="false" src="IMG/Cookie.png" alt="" />
           </button>
         </div>
+        <img
+          id="cookie-particle"
+          style="display: none"
+          src="IMG/SmallCookie.png"
+        />
         <div class="milk-loop">
           <div class="mover">
             <img src="IMG/NormalMilk.png" alt="" />
