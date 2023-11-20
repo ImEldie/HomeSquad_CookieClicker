@@ -337,8 +337,12 @@ function generateHeaderButtonEventListeners(name){ // supply header button name,
     // Close button
     htmlElementPopupClose.addEventListener('click', () => {
             htmlElementPopup.classList = "header-popup-hidden";
-    });
-
+    })
+}
+function updateStats(intervalTime){
+    setInterval(() => {
+        
+    }, intervalTime);
 }
 // ### RUNTIME ###
 // Initialise headerbutton functions
@@ -351,3 +355,4 @@ function generateHeaderButtonEventListeners(name){ // supply header button name,
 
 // Render website values, such as the wallet & shops
 renderWebsite(100);
+updateStats(5000);
