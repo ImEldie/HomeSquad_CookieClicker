@@ -19,9 +19,9 @@
       </div>
       <div id="header-button-collection">
         <!--  TODO: FUNCTIONALITY OF THE BUTTONS  -->
-        <button class="header-button">OPTIONS</button>
-        <button class="header-button">INFO</button>
-        <button class="header-button">STATS</button>
+        <button class="header-button" id="header-button-options">OPTIONS</button>
+        <button class="header-button" id="header-button-info">INFO</button>
+        <button class="header-button" id="header-button-stats">STATS</button>
       </div>
     </div>
     <!--  CONTENT  -->
@@ -55,31 +55,67 @@
           </div>
         </div>
         <div id="upgrade-screen">
-          <div>UPGRADES GO HERE</div>
-          <div class="split-bar"></div>
+          <div class="header-popup-hidden" id="popup-options">
+            <div class="header-popup-title">OPTIONS
+              <button class="close-popup" id="close-popup-options">X</button>
+            </div>
+            <div class="header-popup-content">
+              <div class="header-popup-text-container">
+                W.I.P.
+              </div>
+            </div>
+          </div>
+          <div class="header-popup-hidden" id="popup-info">
+            <div class="header-popup-title">INFO
+              <button class="close-popup" id="close-popup-info">X</button>
+            </div>
+            <div class="header-popup-content">
+              <div class="header-popup-text-container">
+                <div>CookieClicker Clone made by HomeSquad</div>
+                <br>
+                <div>A school exercise for SyntraPXL, where we had to clone cookie clicker for a group-project</div>
+                <div>Made in 2023</div>
+              </div>
+            </div>
+          </div>
+          <div class="header-popup-hidden" id="popup-stats">
+            <div class="header-popup-title">STATS
+              <button class="close-popup" id="close-popup-stats">X</button>
+            </div>
+            <div class="header-popup-content">
+              <div class="header-popup-text-container">
+                W.I.P.
+              </div>
+            </div>
+          </div>
+          <div class="shop-title-text">UPGRADES SHOP</div>
+          <div>WIP</div>
+          <!--
+            <div class="split-bar"></div>
+          -->
           <div id="building-shop">
-            SHOP
-            <!--  Building buttons will be generated here by javascript  -->
+            <div class="shop-title-text">BUILDING SHOP</div>
+            <!--  Building buttons will be generated here by javascript (code can be found in index.js => class building => _generateHtmlButton())  -->
             <!--  Example code here:  -->
             <!--
                 <button class="building-button-open" id="building0">
                     <div class="building-image" id="building0-image">img</div>
                     <div class="building-name" id="building0-name">Cursor</div>
-                    <div class="">
+                    <div class="building-number-div">
                         <div class="building-amount" id="building0-amount">0</div>
                         <div class="building-price-green" id="building0-price">10</div>    
                     </div>
                 </button>
+                    <div class="tooltip" id="tooltip-building0">Your Tooltip Text</div>
                 <button class="building-button-closed" id="building1">
                     <div class="building-image" id="building1-image">img</div>
                     <div class="building-name" id="building1-name">Grandma</div>
-                    <div>
+                    <div class="building-number-div">
                         <div class="building-amount" id="building1-amount">0</div>
                         <div class="building-price-red" id="building1-price">10</div>    
                     </div>
                 </button>
                 -->
-
           </div>
         </div>
       </div>

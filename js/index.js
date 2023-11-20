@@ -3,19 +3,22 @@ class building {
     name;
     id;
     startPrice;
-    currentPrice;
 
     cookiesPerSecond; // Amount of cookies per second, from 1 building instance
     totalCookiesPerSecond; // Amount of cookies per second from ALL buildings of this instance.
+    cookiesPerSecondPercentage; // Percuantual income by this building type
     
     amount;
-    enoughCookiesToBuy;
     unlocked;
+    imageYCoordinate;
 
-    htmlElementButton;
-    htmlElementName;
-    htmlElementAmount;
-    htmlElementPrice;
+    // HTML ELEMENTS
+    htmlElementButton;  // BUTTON
+    htmlElementName;    // BUILDING NAME
+    htmlElementAmount;  // AMOUNT OF THIS BUILDING
+    htmlElementPrice;   // PRICE OF BUILDING
+    htmlElementImage;   // IMAGE OF BUILDING
+    htmlElementTooltip; // BUILDING TOOLTIP
 
     constructor(initId, initName, initBasePrice, initCookiesPerSecond){
         // Write start variables
@@ -33,6 +36,8 @@ class building {
         this.htmlElementName = document.getElementById("building" + this.id + "-name");
         this.htmlElementAmount = document.getElementById("building" + this.id + "-amount");
         this.htmlElementPrice = document.getElementById("building" + this.id + "-price");
+        this.htmlElementImage = document.getElementById("building" + this.id + "-image");
+        this.htmlElementTooltip = document.getElementById("building" + this.id + "-tooltip");
 
         // Add event listener, to run the "buy" command when button is clicked.
         this.htmlElementButton.addEventListener('click', () => {
@@ -43,36 +48,53 @@ class building {
         this.updateInstance();
     }
     _generateHtmlButton(){  // Generates the HTML code for the button
-        let idName = "building" + this.id;
+        const idName = "building" + this.id;
         // Create a new button element
-        var button = document.createElement("button");
+        const button = document.createElement("button");
         button.className = "building-button-open";
         button.id = idName;
 
         // Create the first div element for building-image
-        var imageDiv = document.createElement("div");
+        const imageDiv = document.createElement("img");
         imageDiv.className = "building-image";
         imageDiv.id = idName + "-image";
+        imageDiv.alt= "img-" + this.name;
+        imageDiv.src = "https://orteil.dashnet.org/cookieclicker/img/buildings.png";
+        
+        // Set the positioning for the image, since the image consists of a grid of images
+        if (this.id < 2){ 
+            this.imageYCoordinate = -(this.id * 64);
+        } else { // Shift the position by 1, since row 3 consists of angry grandmas
+            this.imageYCoordinate = -((this.id + 1) * 64);
+        }
+
+        this.imageYCoordinate = this.imageYCoordinate + "px"; // Add px to the end, since the coord value is in Pixels.
+
+        console.log("Generating image for:", this.name + "-button with y-coord", this.imageYCoordinate);
+        // -64px => Black image
+        imageDiv.style.objectPosition = '-64px' + ' ' + this.imageYCoordinate;
+    
+
         imageDiv.appendChild(document.createTextNode("img")); // Assuming you want to display "img" text
 
         // Create the second div element for building-name
-        var nameDiv = document.createElement("div");
+        const nameDiv = document.createElement("div");
         nameDiv.className = "building-name";
         nameDiv.id = idName + "-name";
         nameDiv.appendChild(document.createTextNode(this.name));
 
         // Create a div element for to show amount & price on top of eachother
-        var amountPriceDiv = document.createElement("div");
+        const amountPriceDiv = document.createElement("div");
         amountPriceDiv.className = "building-number-div";
 
         // Create the div for building-amount
-        var amountDiv = document.createElement("div");
+        const amountDiv = document.createElement("div");
         amountDiv.className = "building-amount";
         amountDiv.id = idName + "-amount";
         amountDiv.appendChild(document.createTextNode(this.amount)); // Set the initial value to 0
 
         // Create the div for building-price
-        var priceDiv = document.createElement("div");
+        const priceDiv = document.createElement("div");
         priceDiv.className = "building-price-green";
         priceDiv.id = idName + "-price";
         priceDiv.appendChild(document.createTextNode(this.currentPrice)); // Set the initial price value to 10
@@ -86,66 +108,118 @@ class building {
         button.appendChild(nameDiv);
         button.appendChild(amountPriceDiv);
 
-        // Append the button to the body (or any other container)
+        // create tooltip code
+        let tooltipDiv = document.createElement("div");
+        tooltipDiv.className = "tooltip-locked";    // tooltip will be invisible until building is unlocked by the player
+        tooltipDiv.id = idName + "-tooltip";
+        tooltipDiv.innerHTML = "DESCRIPTION GOES HERE";
+
+        // Append the button & tooltip to the body (or any other container)
         const buildingShopDiv = document.getElementById("building-shop");
         buildingShopDiv.appendChild(button);
-    }
-    _renderHtml(){
-        // ### Update Price ###
-        // Price
-        _visualiseHtmlNumber(this.htmlElementPrice,this.currentPrice);
-        // Price colour
-            // Update button class based on condition
-        this.htmlElementButton.classList.remove('building-button-open', 'building-button-closed');
-        this.htmlElementButton.classList.add(this.enoughCookiesToBuy ? 'building-button-open' : 'building-button-closed');
-
-            // Update Price colour based on condition
-        this.htmlElementPrice.classList.remove('building-price-green', 'building-price-red');
-        this.htmlElementPrice.classList.add(this.enoughCookiesToBuy ? 'building-price-green' : 'building-price-red');
-
-        // ### Update Amount ###
-        this.htmlElementAmount.innerHTML = this.amount;
-
-        // ### Check if Unlocked ###
-        if (cookieTotal >= (this.startPrice * 0.75) && this.unlocked == false){
-            // If we reach 75% of the startPrice once, unlock name forever
-            this.unlocked = true;
-        }
-
-        if (this.unlocked) {
-            this.htmlElementName.innerHTML = this.name;
-        } else {
-            this.htmlElementName.innerHTML = "???";
-        }
+        buildingShopDiv.appendChild(tooltipDiv);
     }
     _evaluateIfPurchaseable(){ // Checks if there is enough money in wallet to purchase this building, returns true or false
-        this.enoughCookiesToBuy = (this.currentPrice <= cookieTotal);
-
-        return this.enoughCookiesToBuy;
+        const purchaseable = (this.currentPrice <= cookieTotal);
+        return purchaseable;
+    }
+    _evaluateIfUnlocked(){
+        if (cookieTotal >= (this.startPrice * 0.75) && this.unlocked == false) {
+            this.unlocked = true;
+            console.log(this.name,"unlocked!")
+            return true;
+        }
+        return this.unlocked;
     }
     _calculateCurrentPrice(){ // calculates the price for the item, ran every time after a purchase
-        let priceRaiseAmount = ((100 + (this.amount * buildingPriceIncreasePerPurchase))/100); // Raise price by 10% for every building
+        const priceRaiseAmount = ((100 + (this.amount * buildingPriceIncreasePerPurchase))/100); // Raise price by 10% for every building
         this.currentPrice = this.currentPrice * priceRaiseAmount;
         this.currentPrice = Math.ceil(this.currentPrice);
     }
     calculateCookiesPerSecond(){    // Calculates how many cookies per second are being generated by all instances of this building
-        this.totalCookiesPerSecond = this.amount * this.cookiesPerSecond * ((100 + cookiesPerSecondBonus)/100);
+        if (this.amount == 0){
+            this.totalCookiesPerSecond = 0;
+            this.cookiesPerSecondPercentage = 0;
+        } else {
+            this.totalCookiesPerSecond = this.amount * this.cookiesPerSecond * ((100 + cookiesPerSecondBonus)/100);
+            this.cookiesPerSecondPercentage = ((this.totalCookiesPerSecond / cookiesPerSecond) * 100);
+            if (this.cookiesPerSecondPercentage >= 100) {   // Visual bug that shows the percentage as 200%/133% for a little bit, if percentage goes over 100 we force it to be 100.
+                this.cookiesPerSecondPercentage = 100;
+            }
+        }
+        
         return this.totalCookiesPerSecond;
     }
     buy() { // Purchase an instance of this building type
+        // If we can purchase, subtract price from total, store new total on session storage and up amount by 1
         if (this._evaluateIfPurchaseable()){
             cookieTotal = cookieTotal - this.currentPrice;
             sessionStorage.setItem("CookieTotal", cookieTotal);
             this.amount++;
 
             this._calculateCurrentPrice();
+            _calculateGlobalCookiesPerSecond();
         }
-        
         this.updateInstance();
     }
-    updateInstance(){   // Forces the button to render in HTML
-        this._evaluateIfPurchaseable();
-        this._renderHtml();
+    evaluateInstanceUpdateRequired(){ // Returns true if instance has to be re-rendered.
+        if ((this._evaluateIfUnlocked() && (this.htmlElementName.innerHTML == "???"))){ // If building is unlocked and not updated yet.
+            return true;
+        } else if ((this._evaluateIfPurchaseable() == true) && (this.htmlElementButton.className != "building-button-open")){ // If building is purchaseable and not updated yet
+            return true;
+        } else if ((this._evaluateIfPurchaseable() == false) && (this.htmlElementButton.className != "building-button-closed")){ // If building is NOT purchaseable and not updated yet
+            return true;
+        } else {
+            // Check if tooltip has to be updated
+            let lastCpsPercentage = this.cookiesPerSecondPercentage; // Store buffer value
+            this.calculateCookiesPerSecond()    // Recalculate
+            if (this.cookiesPerSecondPercentage != lastCpsPercentage) { // If value was updated, return true
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    updateInstance(){
+        // ### Update Price ###
+        console.log("Updating button for building-"+ this.id, this.name);
+        // Price
+        _visualiseHtmlNumber(this.htmlElementPrice,this.currentPrice);
+        // Price colour
+            // Update button class based on condition
+        this.htmlElementButton.classList.remove('building-button-open', 'building-button-closed');
+        this.htmlElementButton.classList.add(this._evaluateIfPurchaseable() ? 'building-button-open' : 'building-button-closed');
+
+            // Update Price colour based on condition
+        this.htmlElementPrice.classList.remove('building-price-green', 'building-price-red');
+        this.htmlElementPrice.classList.add(this._evaluateIfPurchaseable() ? 'building-price-green' : 'building-price-red');
+            
+            // Update image opacity based on condition
+        if (this.unlocked) {
+            this.htmlElementImage.classList.remove('building-image', 'building-image-hidden');
+            this.htmlElementImage.classList.add(this._evaluateIfPurchaseable() ? 'building-image' : 'building-image-hidden');
+        }
+
+        // ### Update Amount ###
+        this.htmlElementAmount.innerHTML = this.amount;
+
+        // ### Update from locked state to unlocked state ###
+        if (this.unlocked) {
+            this.htmlElementName.innerHTML = this.name;
+
+            // Set htmlElement for tooltip's class to "tooltip" instead of "tooltip-locked"
+            const idName = "building" + this.id;
+            const tooltipDiv = document.getElementById(idName + "-tooltip")
+            tooltipDiv.classList = "tooltip";
+            // Set image x-coordinate to the visible version
+            this.htmlElementImage.style.objectPosition = '0px' + ' ' + this.imageYCoordinate;
+        } else {
+            this.htmlElementName.innerHTML = "???";
+        }
+
+        // ### Update tooltip ###
+        this.calculateCookiesPerSecond();
+        this.htmlElementTooltip.innerHTML = this.name + " adds " + this.cookiesPerSecond + "CpS per instance, currently getting " + this.totalCookiesPerSecond.toFixed(1) + "CpS ("+ this.cookiesPerSecondPercentage.toFixed(1) +"% of total CpS) from these buildings.";
     }
 }
 
@@ -156,16 +230,17 @@ const cookiesPerSecondText = document.getElementById("cookies-per-second");
 let cookiesPerSecondBonus = 0; // Percentual bonus to cookies per second (0 = 100% / 10 = 110%)
 const buildingPriceIncreasePerPurchase = 5; // Percentage that a building's price increases with upon purchase
 
-let cookieTotal = 1000;
+let cookieTotal = 0;
 sessionStorage.setItem("CookieTotal", cookieTotal);
 let cookiesPerSecond = 0; // To be written by amount of buildings later
 let cookiesPerClick = 1;
 
 let buildings = [
-    new building(0,"Clicker",10,0.1),
+    new building(0,"Cursor",10,0.1),
     new building(1,"Granny",115,1),
     new building(2,"Farm",1100,8),
-    new building(3,"Test",5500,16)
+    new building(3,"Mine",4200,32),
+    new building(4,"Factory",7500,69)
 ]
 
 // ### FUNCTIONS ###
@@ -177,6 +252,8 @@ function _calculateGlobalCookiesPerSecond(){
             bufferValue = bufferValue + buildings[i].calculateCookiesPerSecond();
         }
     }
+
+    console.log("New Cookies Per Second value:", bufferValue);
     cookiesPerSecond = bufferValue;
     return cookiesPerSecond;
 }
@@ -199,17 +276,18 @@ function _visualiseHtmlNumber(htmlElement,checkValue){ //Writes a html element's
     } else if (cookieTotal < 10000){   
         htmlElement.innerHTML = Math.round(checkValue); // Rounds the number without decimals
     }
-    else if (cookieTotal < 1000000){ // Show rounded number (100 - 9999)k (thousands)
+    else if (checkValue < 1000000){ // Show rounded number (100 - 9999)k (thousands)
         htmlElement.innerHTML = (checkValue/1000).toFixed(1) + "k"; // Rounds the number without decimals
     } else { // show value in millions
         htmlElement.innerHTML = (checkValue/1000000).toFixed(3) + " Million"; // Rounds the number without decimals
     }   // MORE VARIANTS TO BE ADDED WHENEVER NECESARRY
 }
-function cookiesPerSecondWalletUpdate(intervalTime) { // Supply intervalTime in ms, adds cookies per second to cookietotal.
+function renderWebsite(intervalTime) { // Supply intervalTime in ms, adds cookies per second to cookietotal.
     setInterval(() => {
         // ### CALCULATE COOKIES PER SECOND ###
-        _calculateGlobalCookiesPerSecond();
-        cookieTotal = parseFloat(sessionStorage.getItem('CookieTotal'));
+        //_calculateGlobalCookiesPerSecond();
+        // get value from session storage, for cookiebuttonclick.js
+        cookieTotal = parseFloat(sessionStorage.getItem('CookieTotal')); 
       
         // ### ADD COOKIES PER SECOND TO COOKIE TOTAL ###
         // Count cookieTotal + Cookies per second, cookiesPerSecond will always update correctly, even if we decide to update every 200ms
@@ -222,16 +300,54 @@ function cookiesPerSecondWalletUpdate(intervalTime) { // Supply intervalTime in 
         // Cookies total update
         _visualiseHtmlNumber(cookieTotalText,cookieTotal);
         _visualiseHtmlNumber(cookiesPerSecondText,cookiesPerSecond);
-    }, intervalTime);
-}
-function periodicStoreRender(intervalTime){ // Supply intervaltime, forces all buttons to render every x ms, needed to visualise that a building is purchaseable
-    setInterval(() => {
+
+        // ### Update Building-Shop ###
+        // Check if building is purchaseable
         for (let i = 0; i < buildings.length; i++) {
-            buildings[i].updateInstance();
+            if (buildings[i].evaluateInstanceUpdateRequired()){
+                // If purchaseable, update button html
+                buildings[i].updateInstance();
+            }
         }
     }, intervalTime);
 }
+function generateHeaderButtonEventListeners(name){ // supply header button name, will set up event listeners for every button, MAKE SURE ELEMENT ID'S ARE CORRECTLY NAMED!!
+    /*
+    All HTML elements must be named correctly!
+    It must use the following formats (where 'name' is string we supply to the function)
+    Button in the header must have Id: header-button-'name'
+    popup id must be: popup-'name'
+    close button must be: close-popup-'name'
+    */
 
+    // Get elements from html
+    const htmlElementHeaderButton = document.getElementById("header-button-" + name);
+    const htmlElementPopup = document.getElementById("popup-" + name);
+    const htmlElementPopupClose = document.getElementById("close-popup-" + name);
+
+    // Connect event listeners to buttons
+    // Header button
+    htmlElementHeaderButton.addEventListener('click', () => {
+        if (htmlElementPopup.className == "header-popup-hidden"){
+            htmlElementPopup.classList = "header-popup-visible";
+        } else {
+            htmlElementPopup.classList = "header-popup-hidden";
+        }
+    });
+    // Close button
+    htmlElementPopupClose.addEventListener('click', () => {
+            htmlElementPopup.classList = "header-popup-hidden";
+    });
+
+}
 // ### RUNTIME ###
-cookiesPerSecondWalletUpdate(100);
-periodicStoreRender(250);
+// Initialise headerbutton functions
+    // # Open & close Options
+    generateHeaderButtonEventListeners("options");
+    // # Open & close Info
+    generateHeaderButtonEventListeners("info");
+    // # Open & close Stats
+    generateHeaderButtonEventListeners("stats");
+
+// Render website values, such as the wallet & shops
+renderWebsite(100);
